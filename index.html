@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kilson Tech - Serviços Elétricos e Mobile</title>
+    <style>
+        /* --- Estilos Gerais --- */
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #02183b;
+            color: #ffffff;
+            margin: 0;
+            padding-top: 60px; /* Dá espaço para a barra fixa do topo não tapar o conteúdo */
+            text-align: center;
+        }
+        
+        /* --- BARRA FIXA NO TOPO --- */
+        .barra-topo {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #000a1f;
+            border-bottom: 2px solid #ffcc00;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            box-sizing: border-box;
+            z-index: 1000; /* Garante que fica sempre por cima de tudo */
+        }
+        .btn-topo-voltar {
+            background-color: #00509e;
+            color: white;
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 14px;
+            border: 1px solid #ffcc00;
+        }
+        .texto-topo {
+            color: #ffcc00;
+            font-weight: bold;
+            font-size: 14px;
+            margin: 0;
+        }
+
+        header {
+            background-color: #000a1f;
+            padding: 30px 20px;
+            border-bottom: 3px solid #ffcc00;
+        }
+        h1 { color: #ffcc00; margin: 0; font-size: 32px; }
+        h2 { font-size: 18px; color: #4da6ff; margin-top: 10px; }
+        .container { padding: 20px; }
+        
+        /* --- Estilos dos Cartões --- */
+        .cartao {
+            background-color: #052659;
+            border: 2px solid #00509e;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: left;
+            overflow: hidden; /* Garante que a imagem respeita o arredondamento do cartão */
+        }
+        .cartao h3 {
+            color: #ffcc00;
+            margin-top: 15px; /* Dá espaço para o título não colar na imagem */
+            border-bottom: 1px solid #00509e;
+            padding-bottom: 10px;
+        }
+        
+        /* --- ESTILO PARA A IMAGEM DO CABEÇALHO DO CARTÃO --- */
+        .cartao-img-topo {
+            width: 100%;
+            height: 160px; /* Altura ideal para ecrãs de telemóvel */
+            object-fit: cover; /* Recorta a imagem para preencher sem distorcer */
+            object-position: center;
+            border-radius: 6px 6px 0 0;
+            margin-top: -20px; /* Anula o padding de cima do cartão para colar no topo */
+            margin-left: -20px; /* Anula o padding da esquerda */
+            margin-right: -20px; /* Anula o padding da direita */
+            width: calc(100% + 40px); /* Alarga a imagem para tocar nas bordas do cartão */
+        }
+        
+        /* --- Estilo das Listas --- */
+        ul { list-style-type: none; padding: 0; }
+        li { margin-bottom: 12px; font-size: 16px; }
+        li::before { content: "✅ "; }
+        
+        /* --- Estilos do Formulário --- */
+        label {
+            display: block;
+            margin-top: 18px;
+            margin-bottom: 6px;
+            color: #4da6ff;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 14px;
+            border-radius: 6px;
+            border: 1px solid #4da6ff;
+            background-color: #000a1f;
+            color: white;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        input:focus, select:focus, textarea:focus {
+            border-color: #ffcc00;
+            outline: none;
+        }
+        
+        /* --- Botões --- */
+        .botao-gps {
+            background-color: #00509e;
+            color: white;
+            border: 1px dashed #ffcc00;
+            padding: 14px;
+            width: 100%;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 14px;
+            margin-top: 5px;
+            cursor: pointer;
+        }
+        .botao-enviar {
+            background-color: #ffcc00;
+            color: #000a1f;
+            border: none;
+            padding: 16px;
+            width: 100%;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 18px;
+            margin-top: 25px;
+            cursor: pointer;
+        }
+        .botao-whatsapp {
+            display: block;
+            background-color: #25D366;
+            color: white;
+            text-decoration: none;
+            padding: 15px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 18px;
+            margin: 30px 20px;
+        }
+        footer {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #000a1f;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="barra-topo">
+        <a href="#topo" class="btn-topo-voltar">🏠 Menu Principal</a>
+        <p class="texto-topo">⚡ KILSON TECH</p>
+    </div>
+
+    <div id="topo"></div>
+
+    <header>
+        <h1>⚡ KILSON TECH</h1>
+        <h2>ENERGIA E SOLUÇÕES ELÉTRICAS INDUSTIAIS</h2>
+        <p>Com segurança e qualidade.</p>
+    </header>
+
+    <div class="container">
+        
+        <!-- PRIMEIRO CARTÃO: SERVIÇOS ELÉTRICOS (Com a sua imagem no cabeçalho) -->
+        <div class="cartao">
+            <!-- Nome da imagem atualizado para corresponder ao novo ficheiro -->
+            <img src="1779654562458_2.png" alt="Eletricidade Industrial" class="cartao-img-topo">
+            <h3>⚡ Serviços Elétricos Industriais</h3>
+            <ul>
+                <li>Instalação Elétrica Industrial</li>
+                <li>Montagem de Quadros de Distribuição</li>
+                <li>Manutenção Elétrica (Preventiva e Corretiva)</li>
+                <li>Sistemas de Iluminação Industrial</li>
+                <li>Instalação de Painéis Solares, UPS e Inversores</li>
+                <li>Resolução de Curto-Circuito e Disjuntores</li>
+            </ul>
+        </div>
+
+        <!-- SEGUNDO CARTÃO: SERVIÇOS MOBILE -->
+        <div class="cartao">
+            <h3>📱 Serviços Mobile (Celular)</h3>
+            <ul>
+                <li>Formatação e Atualização de Sistema</li>
+                <li>Remoção de FRP (Conta Google)</li>
+                <li>Instalação de Firmware / Software</li>
+                <li>Desbloqueio de Dispositivos</li>
+                <li>Recuperação de Dados Perdidos</li>
+                <li>Reparo Geral de Software (iOS e Android)</li>
+            </ul>
+        </div>
+        
+        <!-- TERCEIRO CARTÃO: FORMULÁRIO -->
+        <div class="cartao">
+            <h3>📝 Fazer Pedido / Cadastro de Orçamento</h3>
+            <form id="meuFormulario">
+                <label for="nome">O seu Nome:</label>
+                <input type="text" id="nome" placeholder="Ex: João Silva" required>
+
+                <label for="telefone">O seu Contacto:</label>
+                <input type="tel" id="telefone" placeholder="Ex: 84XXXXXXX / 86XXXXXXX" required>
+
+                <label>Localização (Toque para detetar automaticamente):</label>
+                <button type="button" id="btnGps" class="botao-gps" onclick="obterLocalizacao()">
+                    📍 Detetar Província, Distrito e Bairro por GPS
+                </button>
+                <input type="hidden" id="coordenadas" value="">
+
+                <label for="provincia">Província:</label>
+                <input type="text" id="provincia" placeholder="Aguardando GPS ou digite..." required>
+
+                <label for="distrito">Distrito:</label>
+                <input type="text" id="distrito" placeholder="Aguardando GPS ou digite..." required>
+
+                <label for="bairro">Bairro / Zona:</label>
+                <input type="text" id="bairro" placeholder="Aguardando GPS ou digite..." required>
+
+                <label for="tipo">Tipo de Serviço Que Precisa:</label>
+                <select id="tipo" required>
+                    <option value="" disabled selected>Escolha uma opção...</option>
+                    <option value="Energia (Elétrico)">⚡ Serviço de Energia (Elétrico)</option>
+                    <option value="Celular (Mobile)">📱 Serviço de Celular (Mobile)</option>
+                </select>
+
+                <label for="problema">Descreva o problema / serviço:</label>
+                <textarea id="problema" rows="4" placeholder="O que precisa que seja feito?" required></textarea>
+
+                <button type="button" class="botao-enviar" onclick="enviarParaWhatsApp()">Enviar Cadastro por WhatsApp</button>
+            </form>
+        </div>
+
+    </div>
+
+    <a href="#" onclick="abrirLinkDireto('https://wa.me/258861685594')" class="botao-whatsapp">
+        📞 Falar Direto no WhatsApp
+    </a>
+
+    <footer>
+        <p>Garantimos: Segurança | Profissionalismo | Eficiência</p>
+        <p>© 2026 Kilson Tech. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        function obterLocalizacao() {
+            if (navigator.geolocation) {
+                document.getElementById("btnGps").innerText = "⏳ A ler mapa e endereço...";
+                
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var lat = position.coords.latitude;
+                    var lon = position.coords.longitude;
+                    
+                    document.getElementById("coordenadas").value = "https://maps.google.com/?q=" + lat + "," + lon;
+                    
+                    var urlApi = "https://nominatim.openstreetmap.org/reverse?format=json&lat=" + lat + "&lon=" + lon + "&zoom=18&addressdetails=1";
+                    
+                    fetch(urlApi)
+                    .then(response => response.json())
+                    .then(data => {
+                        var endereco = data.address;
+                        
+                        var provincia = endereco.state || endereco.region || "";
+                        var distrito = endereco.county || endereco.city_district || endereco.city || "";
+                        var bairro = endereco.suburb || endereco.neighbourhood || endereco.village || endereco.road || "Zona Detetada";
+                        
+                        document.getElementById("provincia").value = provincia;
+                        document.getElementById("distrito").value = distrito;
+                        document.getElementById("bairro").value = bairro;
+                        
+                        document.getElementById("btnGps").innerText = "✅ Endereço Preenchido!";
+                        document.getElementById("btnGps").style.backgroundColor = "#25D366";
+                        document.getElementById("btnGps").style.color = "white";
+                    })
+                    .catch(err => {
+                        document.getElementById("btnGps").innerText = "✅ Coordenadas Guardadas!";
+                        alert("Coordenadas guardadas com sucesso! Por favor, digite apenas os nomes das zonas faltantes.");
+                    });
+
+                }, function(error) {
+                    alert("Por favor, digite os dados da sua localização manualmente.");
+                    document.getElementById("btnGps").innerText = "❌ Digite a Localização Manualmente";
+                    document.getElementById("btnGps").style.backgroundColor = "#ff4d4d";
+                });
+            } else {
+                alert("O seu navegador não suporta localização por GPS.");
+            }
+        }
+
+        function abrirLinkDireto(url) {
+            window.location.href = url;
+        }
+
+        function enviarParaWhatsApp() {
+            var nome = document.getElementById("nome").value;
+            var telefone = document.getElementById("telefone").value;
+            var provincia = document.getElementById("provincia").value;
+            var distrito = document.getElementById("distrito").value;
+            var bairro = document.getElementById("bairro").value;
+            var coordenadas = document.getElementById("coordenadas").value;
+            var tipo = document.getElementById("tipo").value;
+            var problema = document.getElementById("problema").value;
+
+            if(nome === "" || telefone === "" || provincia === "" || distrito === "" || bairro === "" || tipo === "" || problema === "") {
+                alert("Por favor, preencha todos os campos obrigatórios!");
+                return;
+            }
+
+            var textoMensagem = "Olá Kilson Tech! Tenho um pedido do site.\n\n" +
+                                "*Nome:* " + nome + "\n" +
+                                "*Contacto:* " + telefone + "\n\n" +
+                                "*📍 LOCALIZAÇÃO:*\n" +
+                                "• Província: " + provincia + "\n" +
+                                "• Distrito: " + distrito + "\n" +
+                                "• Bairro: " + bairro + "\n";
+            
+            if(coordenadas !== "") {
+                textoMensagem += "• Mapa Google: " + coordenadas + "\n";
+            }
+            
+            textoMensagem += "\n*Serviço:* " + tipo + "\n" +
+                             "*Problema:* " + problema;
+
+            var link = "https://wa.me/258861685594?text=" + encodeURIComponent(textoMensagem);
+            window.location.href = link;
+        }
+    </script>
+
+</body>
+</html>
