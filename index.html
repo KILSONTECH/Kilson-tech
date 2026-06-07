@@ -1,21 +1,26 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-MZ">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kilson Tech - Serviços Elétricos e Mobile</title>
     <style>
-        /* --- Estilos Gerais --- */
+        /* --- Reset e Estilos Gerais --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
         html {
             scroll-behavior: smooth;
         }
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Arial, sans-serif;
             background-color: #02183b;
             color: #ffffff;
-            margin: 0;
-            padding-top: 60px; /* Dá espaço para a barra fixa do topo não tapar o conteúdo */
+            padding-top: 70px;
             text-align: center;
+            line-height: 1.6;
         }
         
         /* --- BARRA FIXA NO TOPO --- */
@@ -29,72 +34,153 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 15px;
-            box-sizing: border-box;
-            z-index: 1000; /* Garante que fica sempre por cima de tudo */
+            padding: 12px 20px;
+            z-index: 1000;
         }
         .btn-topo-voltar {
             background-color: #00509e;
-            color: white;
+            color: #ffffff;
             text-decoration: none;
-            padding: 8px 12px;
+            padding: 8px 14px;
             border-radius: 5px;
             font-weight: bold;
             font-size: 14px;
             border: 1px solid #ffcc00;
+            transition: background 0.3s;
+        }
+        .btn-topo-voltar:hover {
+            background-color: #003f7e;
         }
         .texto-topo {
             color: #ffcc00;
             font-weight: bold;
             font-size: 14px;
-            margin: 0;
         }
 
+        /* --- CABEÇALHO --- */
         header {
             background-color: #000a1f;
-            padding: 30px 20px;
+            padding: 40px 20px;
             border-bottom: 3px solid #ffcc00;
         }
-        h1 { color: #ffcc00; margin: 0; font-size: 32px; }
-        h2 { font-size: 18px; color: #4da6ff; margin-top: 10px; }
-        .container { padding: 20px; }
+        header h1 { 
+            color: #ffcc00; 
+            font-size: 32px; 
+            margin-bottom: 5px;
+        }
+        header h2 { 
+            font-size: 18px; 
+            color: #4da6ff; 
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        header p {
+            font-size: 14px;
+            color: #e0e0e0;
+            margin-top: 5px;
+        }
         
-        /* --- Estilos dos Cartões --- */
+        /* --- CONTÊNER DE LAYOUT --- */
+        .container { 
+            padding: 20px; 
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* --- CARTÕES --- */
         .cartao {
             background-color: #052659;
             border: 2px solid #00509e;
             border-radius: 10px;
             padding: 20px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             text-align: left;
-            overflow: hidden; /* Garante que a imagem respeita o arredondamento do cartão */
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
         .cartao h3 {
             color: #ffcc00;
-            margin-top: 15px; /* Dá espaço para o título não colar na imagem */
+            margin: 15px 0;
             border-bottom: 1px solid #00509e;
             padding-bottom: 10px;
+            font-size: 20px;
         }
         
-        /* --- ESTILO PARA A IMAGEM DO CABEÇALHO DO CARTÃO --- */
+        /* --- IMAGENS DOS CARTÕES PRINCIPAIS --- */
         .cartao-img-topo {
-            width: 100%;
-            height: 160px; /* Altura ideal para ecrãs de telemóvel */
-            object-fit: cover; /* Recorta a imagem para preencher sem distorcer */
+            width: calc(100% + 40px);
+            height: 180px;
+            object-fit: cover;
             object-position: center;
-            border-radius: 6px 6px 0 0;
-            margin-top: -20px; /* Anula o padding de cima do cartão para colar no topo */
-            margin-left: -20px; /* Anula o padding da esquerda */
-            margin-right: -20px; /* Anula o padding da direita */
-            width: calc(100% + 40px); /* Alarga a imagem para tocar nas bordas do cartão */
+            margin: -20px -20px 0 -20px;
+            display: block;
         }
         
-        /* --- Estilo das Listas --- */
-        ul { list-style-type: none; padding: 0; }
-        li { margin-bottom: 12px; font-size: 16px; }
-        li::before { content: "✅ "; }
+        /* --- LISTAS DE SERVIÇOS --- */
+        .cartao ul { 
+            list-style: none; 
+        }
+        .cartao li { 
+            margin-bottom: 12px; 
+            font-size: 16px; 
+            display: flex;
+            align-items: center;
+        }
+        .cartao li::before { 
+            content: "✅"; 
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
         
-        /* --- Estilos do Formulário --- */
+        /* --- SEÇÃO DE PARCEIROS COM IMAGENS REAIS --- */
+        .colaborador-item {
+            background-color: #000a1f;
+            border-left: 4px solid #ffcc00;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 0 8px 8px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .parceiro-img-container {
+            width: 130px;
+            height: 130px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            overflow: hidden;
+            padding: 5px;
+        }
+        
+        .parceiro-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .colaborador-texto {
+            flex: 1;
+        }
+        .colaborador-texto h4 {
+            color: #ffcc00;
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+        .colaborador-texto p {
+            font-size: 14px;
+            color: #e0e0e0;
+            line-height: 1.5;
+        }
+
+        /* --- FORMULÁRIOS --- */
         label {
             display: block;
             margin-top: 18px;
@@ -109,19 +195,20 @@
             border-radius: 6px;
             border: 1px solid #4da6ff;
             background-color: #000a1f;
-            color: white;
-            box-sizing: border-box;
+            color: #ffffff;
             font-size: 16px;
+            font-family: inherit;
         }
         input:focus, select:focus, textarea:focus {
             border-color: #ffcc00;
             outline: none;
+            box-shadow: 0 0 5px rgba(255, 204, 0, 0.4);
         }
         
-        /* --- Botões --- */
+        /* --- BOTÕES --- */
         .botao-gps {
             background-color: #00509e;
-            color: white;
+            color: #ffffff;
             border: 1px dashed #ffcc00;
             padding: 14px;
             width: 100%;
@@ -130,6 +217,10 @@
             font-size: 14px;
             margin-top: 5px;
             cursor: pointer;
+            transition: background 0.3s;
+        }
+        .botao-gps:hover {
+            background-color: #003f7e;
         }
         .botao-enviar {
             background-color: #ffcc00;
@@ -142,23 +233,100 @@
             font-size: 18px;
             margin-top: 25px;
             cursor: pointer;
+            transition: transform 0.2s, background-color 0.3s;
         }
-        .botao-whatsapp {
-            display: block;
-            background-color: #25D366;
-            color: white;
+        .botao-enviar:active {
+            transform: scale(0.98);
+        }
+
+        /* --- CONTACTOS DIRETO --- */
+        .container-contactos {
+            max-width: 400px;
+            margin: 20px auto 40px auto;
+            padding: 0 20px;
+        }
+        .botao-contacto {
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-decoration: none;
-            padding: 15px;
+            color: #ffffff;
+            padding: 12px 15px;
             border-radius: 30px;
             font-weight: bold;
-            font-size: 18px;
-            margin: 30px 20px;
+            font-size: 16px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transition: opacity 0.2s, transform 0.2s;
         }
+        .botao-contacto:active {
+            transform: scale(0.98);
+        }
+        .botao-whatsapp {
+            background-color: #25D366;
+        }
+        .botao-whatsapp:hover {
+            opacity: 0.9;
+        }
+        .botao-chamada {
+            background-color: #0077ff;
+            border: 1px solid #ffcc00;
+        }
+        .botao-chamada:hover {
+            background-color: #005fc5;
+        }
+        
+        .logo-whatsapp-container {
+            width: 32px;
+            height: 32px;
+            background-color: #25d366;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+        .icon-whatsapp-svg {
+            width: 22px;
+            height: 22px;
+            fill: #ffffff;
+        }
+        .icon-chamada-texto {
+            font-size: 20px;
+            margin-right: 12px;
+            line-height: 1;
+        }
+
+        /* --- RODAPÉ --- */
         footer {
-            margin-top: 40px;
-            padding: 20px;
+            padding: 30px 20px;
             background-color: #000a1f;
             font-size: 14px;
+            border-top: 1px solid #00509e;
+        }
+        .assinatura-marca {
+            font-size: 15px;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            color: #ffcc00;
+            font-weight: bold;
+        }
+        .garantias-rodape {
+            color: #4da6ff;
+            margin-bottom: 5px;
+        }
+
+        /* --- RESPONSIVIDADE --- */
+        @media(min-width: 600px) {
+            .colaborador-item {
+                flex-direction: row;
+                text-align: left;
+            }
+            .parceiro-img-container {
+                margin-bottom: 0;
+                margin-right: 20px;
+            }
         }
     </style>
 </head>
@@ -173,29 +341,30 @@
 
     <header>
         <h1>⚡ KILSON TECH</h1>
-        <h2>ENERGIA E SOLUÇÕES ELÉTRICAS INDUSTIAIS</h2>
-        <p>Com segurança e qualidade.</p>
+        <h2>Energia e Soluções Elétricas Industriais</h2>
+        <p>Com segurança, qualidade e eficiência.</p>
     </header>
 
     <div class="container">
         
-        <!-- PRIMEIRO CARTÃO: SERVIÇOS ELÉTRICOS (Com a sua imagem no cabeçalho) -->
         <div class="cartao">
-            <!-- Nome da imagem atualizado para corresponder ao novo ficheiro -->
-            <img src="1779654562458_2.png" alt="Eletricidade Industrial" class="cartao-img-topo">
+            <img src="1779654562458.png" alt="Instalações Elétricas Industriais" class="cartao-img-topo">
             <h3>⚡ Serviços Elétricos Industriais</h3>
             <ul>
+                <li>Resolução de Curto-Circuito e Disjuntores</li>
                 <li>Instalação Elétrica Industrial</li>
                 <li>Montagem de Quadros de Distribuição</li>
                 <li>Manutenção Elétrica (Preventiva e Corretiva)</li>
                 <li>Sistemas de Iluminação Industrial</li>
                 <li>Instalação de Painéis Solares, UPS e Inversores</li>
-                <li>Resolução de Curto-Circuito e Disjuntores</li>
+                <li>Montagem e Manutenção de Motores Elétricos</li>
+                <li>Manutenção de Geradores</li>
+                <li>Instalação de Câmaras de Vigilância (CCTV)</li>
             </ul>
         </div>
 
-        <!-- SEGUNDO CARTÃO: SERVIÇOS MOBILE -->
         <div class="cartao">
+            <img src="1000463775.png" alt="Manutenção de Smartphones e Computadores" class="cartao-img-topo">
             <h3>📱 Serviços Mobile (Celular)</h3>
             <ul>
                 <li>Formatação e Atualização de Sistema</li>
@@ -204,10 +373,12 @@
                 <li>Desbloqueio de Dispositivos</li>
                 <li>Recuperação de Dados Perdidos</li>
                 <li>Reparo Geral de Software (iOS e Android)</li>
+                <li>Manutenção de Computadores e Portáteis</li>
+                <li>Troca de Componentes (Troca de LCD / Ecrãs)</li>
+                <li>Reparação Avançada de Hardware (Troca de Placas)</li>
             </ul>
         </div>
         
-        <!-- TERCEIRO CARTÃO: FORMULÁRIO -->
         <div class="cartao">
             <h3>📝 Fazer Pedido / Cadastro de Orçamento</h3>
             <form id="meuFormulario">
@@ -217,7 +388,7 @@
                 <label for="telefone">O seu Contacto:</label>
                 <input type="tel" id="telefone" placeholder="Ex: 84XXXXXXX / 86XXXXXXX" required>
 
-                <label>Localização (Toque para detetar automaticamente):</label>
+                <label for="btnGps">Localização (Toque para detetar automaticamente):</label>
                 <button type="button" id="btnGps" class="botao-gps" onclick="obterLocalizacao()">
                     📍 Detetar Província, Distrito e Bairro por GPS
                 </button>
@@ -236,7 +407,7 @@
                 <select id="tipo" required>
                     <option value="" disabled selected>Escolha uma opção...</option>
                     <option value="Energia (Elétrico)">⚡ Serviço de Energia (Elétrico)</option>
-                    <option value="Celular (Mobile)">📱 Serviço de Celular (Mobile)</option>
+                    <option value="Celular ou Computador">📱 Serviço de Celular ou Computador</option>
                 </select>
 
                 <label for="problema">Descreva o problema / serviço:</label>
@@ -246,64 +417,118 @@
             </form>
         </div>
 
+        <div class="cartao">
+            <h3>🤝 Apoio e Parceiros Oficiais</h3>
+            
+            <div class="colaborador-item">
+                <div class="parceiro-img-container">
+                    <img src="1000492586_2.jpg" alt="Logo Atech & Service" class="parceiro-img">
+                </div>
+                <div class="colaborador-texto">
+                    <h4>Atech & Service</h4>
+                    <p>Parceiro especialista em microeletrónica e informática. Responsável pelas reparações avançadas de hardware, substituição de ecrãs/LCD, troca de placas de telemóveis e assistência técnica completa em computadores e softwares.</p>
+                </div>
+            </div>
+
+            <div class="colaborador-item">
+                <div class="parceiro-img-container">
+                    <img src="1000506824.jpg" alt="Logo MBTEC" class="parceiro-img">
+                </div>
+                <div class="colaborador-texto">
+                    <h4>MBTEC</h4>
+                    <p>Parceiro especializado em sistemas de energia pesada e proteção. Atua diretamente na montagem de geradores, motores elétricos industriais, sistemas fotovoltaicos (energia solar), instalações elétricas completas e segurança eletrónica com câmaras CCTV.</p>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-    <a href="#" onclick="abrirLinkDireto('https://wa.me/258861685594')" class="botao-whatsapp">
-        📞 Falar Direto no WhatsApp
-    </a>
+    <div class="container-contactos">
+        <a href="https://wa.me/258861685594" class="botao-contacto botao-whatsapp">
+            <div class="logo-whatsapp-container">
+                <svg class="icon-whatsapp-svg" viewBox="0 0 24 24">
+                    <path d="M12.003 21.003c-1.63 0-3.222-.423-4.633-1.227l-.332-.198-3.447.904.92-3.36-.217-.345C3.425 15.34 2.997 13.693 3 11.996c.01-4.963 4.053-9.002 9.02-9.002 2.408 0 4.67.938 6.37 2.643a8.94 8.94 0 0 1 2.636 6.37c-.01 4.966-4.054 9.005-9.023 9.005zm7.315-13.882a7.712 7.712 0 0 0-5.416-2.247c-4.24 0-7.69 3.444-7.697 7.683a7.665 7.665 0 0 0 1.173 4.02l-.782 2.857 2.924-.766a7.667 7.667 0 0 0 3.678.932h.003c4.24 0 7.692-3.445 7.7-7.684a7.674 7.674 0 0 0-2.247-5.415-.15.15 0 0 0-.133-.08zM15.93 13.09c-.213-.107-1.264-.624-1.46-.695-.196-.072-.34-.107-.482.107-.143.214-.553.695-.678.838-.124.143-.25.16-.463.054a5.83 5.83 0 0 1-1.717-1.057 6.44 6.44 0 0 1-1.188-1.48c-.125-.213-.013-.33.093-.436.1-.1.214-.25.32-.374.108-.124.144-.214.215-.356.07-.143.035-.267-.018-.374-.053-.107-.482-1.16-.66-1.597-.173-.418-.349-.36-.482-.367-.124-.006-.267-.008-.41-.008-.142 0-.374.054-.57.267-.196.214-.748.732-.748 1.785 0 1.053.766 2.07.873 2.213.107.143 1.508 2.3 3.654 3.228.51.22 1.033.385 1.41.485.524.156.994.128 1.365.073.414-.062 1.265-.517 1.442-1.016.178-.5.178-.928.125-1.017-.053-.09-.196-.143-.41-.25z"/>
+                </svg>
+            </div>
+            Falar Direto no WhatsApp
+        </a>
+        <a href="tel:+258861685594" class="botao-contacto botao-chamada">
+            <span class="icon-chamada-texto">📞</span>
+            Ligar por Chamada (Sem Internet)
+        </a>
+    </div>
 
     <footer>
-        <p>Garantimos: Segurança | Profissionalismo | Eficiência</p>
+        <p class="assinatura-marca">🤝 Kilson Tech — Sozinhos somos apenas um passo, juntos construímos o futuro.</p>
+        <p class="garantias-rodape">Garantimos: Segurança | Profissionalismo | Eficiência</p>
         <p>© 2026 Kilson Tech. Todos os direitos reservados.</p>
     </footer>
 
     <script>
         function obterLocalizacao() {
             if (navigator.geolocation) {
-                document.getElementById("btnGps").innerText = "⏳ A ler mapa e endereço...";
+                // Atualiza o botão para dar feedback visual instantâneo
+                document.getElementById("btnGps").innerText = "⏳ A ler GPS e a preencher campos...";
+                document.getElementById("btnGps").style.backgroundColor = "#ffcc00";
+                document.getElementById("btnGps").style.color = "#000a1f";
                 
                 navigator.geolocation.getCurrentPosition(function(position) {
                     var lat = position.coords.latitude;
                     var lon = position.coords.longitude;
                     
-                    document.getElementById("coordenadas").value = "https://maps.google.com/?q=" + lat + "," + lon;
+                    // Cria o link conversível do Google Maps válido e guarda no campo oculto
+                    document.getElementById("coordenadas").value = "https://www.google.com/maps?q=" + lat + "," + lon;
                     
-                    var urlApi = "https://nominatim.openstreetmap.org/reverse?format=json&lat=" + lat + "&lon=" + lon + "&zoom=18&addressdetails=1";
+                    // Servidor público otimizado que entrega dados em tempo real sem travar
+                    var urlApi = "https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=" + lat + "&longitude=" + lon + "&localityLanguage=pt";
                     
                     fetch(urlApi)
                     .then(response => response.json())
                     .then(data => {
-                        var endereco = data.address;
+                        // Extrai a informação geográfica retornada
+                        var provincia = data.principalSubdivision || "";
+                        var distrito = data.locality || "";
+                        var bairro = data.localityInfo?.informative?.[0]?.name || data.localityInfo?.informative?.[1]?.name || "";
                         
-                        var provincia = endereco.state || endereco.region || "";
-                        var distrito = endereco.county || endereco.city_district || endereco.city || "";
-                        var bairro = endereco.suburb || endereco.neighbourhood || endereco.village || endereco.road || "Zona Detetada";
+                        // Formata os nomes para o padrão em português de Moçambique
+                        provincia = provincia.replace("Province", "Província").replace("provincia", "Província");
+                        distrito = distrito.replace("District", "").replace("distrito", "");
                         
+                        if (bairro === "" || bairro === distrito) {
+                            bairro = "Zona detetada via GPS";
+                        }
+
+                        // ESCREVE AUTOMATICAMENTE DENTRO DOS CAMPOS DO FORMULÁRIO NA MESMA HORA
                         document.getElementById("provincia").value = provincia;
-                        document.getElementById("distrito").value = distrito;
+                        document.getElementById("distrito").value = distrito.trim();
                         document.getElementById("bairro").value = bairro;
                         
-                        document.getElementById("btnGps").innerText = "✅ Endereço Preenchido!";
+                        // Sinaliza sucesso mudando o botão para verde
+                        document.getElementById("btnGps").innerText = "✅ Localização Preenchida!";
                         document.getElementById("btnGps").style.backgroundColor = "#25D366";
-                        document.getElementById("btnGps").style.color = "white";
+                        document.getElementById("btnGps").style.color = "#ffffff";
                     })
                     .catch(err => {
-                        document.getElementById("btnGps").innerText = "✅ Coordenadas Guardadas!";
-                        alert("Coordenadas guardadas com sucesso! Por favor, digite apenas os nomes das zonas faltantes.");
+                        // Caso a API falhe mas o GPS tenha lido as coordenadas, avisa sem travar o app
+                        document.getElementById("btnGps").innerText = "📍 Localização Guardada!";
+                        document.getElementById("btnGps").style.backgroundColor = "#00509e";
+                        document.getElementById("btnGps").style.color = "#ffffff";
+                        alert("As coordenadas numéricas foram guardadas para o seu mapa! Por favor, digite os nomes da Província, Distrito e Bairro manualmente.");
                     });
 
                 }, function(error) {
-                    alert("Por favor, digite os dados da sua localização manualmente.");
-                    document.getElementById("btnGps").innerText = "❌ Digite a Localização Manualmente";
+                    document.getElementById("btnGps").innerText = "❌ GPS Desativado";
                     document.getElementById("btnGps").style.backgroundColor = "#ff4d4d";
+                    document.getElementById("btnGps").style.color = "#ffffff";
+                    alert("Por favor, ligue o GPS do seu dispositivo e autorize o navegador para permitir o preenchimento.");
+                }, { 
+                    enableHighAccuracy: true, 
+                    timeout: 10000, 
+                    maximumAge: 0 
                 });
             } else {
-                alert("O seu navegador não suporta localização por GPS.");
+                alert("O seu navegador não possui suporte para leitura de GPS.");
             }
-        }
-
-        function abrirLinkDireto(url) {
-            window.location.href = url;
         }
 
         function enviarParaWhatsApp() {
@@ -317,10 +542,11 @@
             var problema = document.getElementById("problema").value;
 
             if(nome === "" || telefone === "" || provincia === "" || distrito === "" || bairro === "" || tipo === "" || problema === "") {
-                alert("Por favor, preencha todos os campos obrigatórios!");
+                alert("Por favor, preencha todos os campos obrigatórios antes de enviar!");
                 return;
             }
 
+            // Constrói a mensagem limpa e profissional com o link conversível estruturado
             var textoMensagem = "Olá Kilson Tech! Tenho um pedido do site.\n\n" +
                                 "*Nome:* " + nome + "\n" +
                                 "*Contacto:* " + telefone + "\n\n" +
@@ -330,7 +556,7 @@
                                 "• Bairro: " + bairro + "\n";
             
             if(coordenadas !== "") {
-                textoMensagem += "• Mapa Google: " + coordenadas + "\n";
+                textoMensagem += "• Link do Google Maps: " + coordenadas + "\n";
             }
             
             textoMensagem += "\n*Serviço:* " + tipo + "\n" +
@@ -340,6 +566,5 @@
             window.location.href = link;
         }
     </script>
-
 </body>
 </html>
