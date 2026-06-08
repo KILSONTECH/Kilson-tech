@@ -132,7 +132,7 @@
             flex-shrink: 0;
         }
         
-        /* --- SEÇÃO DE PARCEIROS COM IMAGENS REAIS --- */
+        /* --- NOVA ESTILIZAÇÃO PARA CARTÕES DE PARCEIROS COM IMAGEM --- */
         .colaborador-item {
             background-color: #000a1f;
             border-left: 4px solid #ffcc00;
@@ -145,6 +145,7 @@
             text-align: center;
         }
         
+        /* Container quadrado branco para destacar os logótipos reais */
         .parceiro-img-container {
             width: 130px;
             height: 130px;
@@ -205,7 +206,7 @@
             box-shadow: 0 0 5px rgba(255, 204, 0, 0.4);
         }
         
-        /* --- BOTÕES --- */
+        /* --- BOTÕES DE CADASTRO E GPS --- */
         .botao-gps {
             background-color: #00509e;
             color: #ffffff;
@@ -239,7 +240,7 @@
             transform: scale(0.98);
         }
 
-        /* --- CONTACTOS DIRETO --- */
+        /* --- BOTÕES DE CONTACTO DIRETO (WHATSAPP E CHAMADA) --- */
         .container-contactos {
             max-width: 400px;
             margin: 20px auto 40px auto;
@@ -317,7 +318,7 @@
             margin-bottom: 5px;
         }
 
-        /* --- RESPONSIVIDADE --- */
+        /* --- MEDIA QUERIES (RESPONSIVIDADE) --- */
         @media(min-width: 600px) {
             .colaborador-item {
                 flex-direction: row;
@@ -335,14 +336,18 @@
     <div class="barra-topo">
         <a href="#topo" class="btn-topo-voltar">🏠 Menu Principal</a>
         <p class="texto-topo">⚡ KILSON TECH</p>
+        <select id="seletorIdioma" onchange="mudarIdioma()" style="width: auto; padding: 4px 8px; font-size: 12px; margin-top: 0; border-color: #ffcc00; background-color: #000a1f; color: white; border-radius: 4px;">
+            <option value="pt">🇲🇿 PT</option>
+            <option value="en">🇬🇧 EN</option>
+        </select>
     </div>
 
     <div id="topo"></div>
 
     <header>
         <h1>⚡ KILSON TECH</h1>
-        <h2>Energia e Soluções Elétricas Industriais</h2>
-        <p>Com segurança, qualidade e eficiência.</p>
+        <h2 data-lang="subtitulo">Energia e Soluções Elétricas Industriais</h2>
+        <p data-lang="slogan-topo">Com segurança, qualidade e eficiência.</p>
     </header>
 
     <div class="container">
@@ -382,14 +387,14 @@
         <div class="cartao">
             <h3>📝 Fazer Pedido / Cadastro de Orçamento</h3>
             <form id="meuFormulario">
-                <label for="nome">O seu Nome:</label>
-                <input type="text" id="nome" placeholder="Ex: João Silva" required>
+                <label for="nome" data-lang="label-nome">O seu Nome:</label>
+                <input type="text" id="nome" data-lang="placeholder-nome" placeholder="Ex: João Silva" required>
 
                 <label for="telefone">O seu Contacto:</label>
                 <input type="tel" id="telefone" placeholder="Ex: 84XXXXXXX / 86XXXXXXX" required>
 
                 <label for="btnGps">Localização (Toque para detetar automaticamente):</label>
-                <button type="button" id="btnGps" class="botao-gps" onclick="obterLocalizacao()">
+                <button type="button" id="btnGps" data-lang="btn-gps" class="botao-gps" onclick="obterLocalizacao()">
                     📍 Detetar Província, Distrito e Bairro por GPS
                 </button>
                 <input type="hidden" id="coordenadas" value="">
@@ -413,7 +418,7 @@
                 <label for="problema">Descreva o problema / serviço:</label>
                 <textarea id="problema" rows="4" placeholder="O que precisa que seja feito?" required></textarea>
 
-                <button type="button" class="botao-enviar" onclick="enviarParaWhatsApp()">Enviar Cadastro por WhatsApp</button>
+                <button type="button" class="botao-enviar" data-lang="btn-enviar" onclick="enviarParaWhatsApp()">Enviar Cadastro por WhatsApp</button>
             </form>
         </div>
 
@@ -452,6 +457,7 @@
             </div>
             Falar Direto no WhatsApp
         </a>
+        
         <a href="tel:+258861685594" class="botao-contacto botao-chamada">
             <span class="icon-chamada-texto">📞</span>
             Ligar por Chamada (Sem Internet)
@@ -467,67 +473,50 @@
     <script>
         function obterLocalizacao() {
             if (navigator.geolocation) {
-                // Atualiza o botão para dar feedback visual instantâneo
-                document.getElementById("btnGps").innerText = "⏳ A ler GPS e a preencher campos...";
-                document.getElementById("btnGps").style.backgroundColor = "#ffcc00";
-                document.getElementById("btnGps").style.color = "#000a1f";
+                document.getElementById("btnGps").innerText = "⏳ A ler mapa e endereço...";
                 
                 navigator.geolocation.getCurrentPosition(function(position) {
                     var lat = position.coords.latitude;
                     var lon = position.coords.longitude;
                     
-                    // Cria o link conversível do Google Maps válido e guarda no campo oculto
+                    // Link direto e funcional para o Google Maps no telemóvel
                     document.getElementById("coordenadas").value = "https://www.google.com/maps?q=" + lat + "," + lon;
                     
-                    // Servidor público otimizado que entrega dados em tempo real sem travar
-                    var urlApi = "https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=" + lat + "&longitude=" + lon + "&localityLanguage=pt";
+                    var urlApi = "https://nominatim.openstreetmap.org/reverse?format=json&lat=" + lat + "&lon=" + lon + "&zoom=18&addressdetails=1";
                     
                     fetch(urlApi)
                     .then(response => response.json())
                     .then(data => {
-                        // Extrai a informação geográfica retornada
-                        var provincia = data.principalSubdivision || "";
-                        var distrito = data.locality || "";
-                        var bairro = data.localityInfo?.informative?.[0]?.name || data.localityInfo?.informative?.[1]?.name || "";
+                        var endereco = data.address;
                         
-                        // Formata os nomes para o padrão em português de Moçambique
-                        provincia = provincia.replace("Province", "Província").replace("provincia", "Província");
-                        distrito = distrito.replace("District", "").replace("distrito", "");
+                        // Correção para mapear corretamente o objeto sem quebrar o script
+                        var provincia = endereco.state || endereco.region || "";
+                        var distrito = endereco.county || endereco.city_district || endereco.city || endereco.town || "";
+                        var bairro = endereco.suburb || endereco.neighbourhood || endereco.village || endereco.road || "Zona Detetada";
                         
-                        if (bairro === "" || bairro === distrito) {
-                            bairro = "Zona detetada via GPS";
-                        }
-
-                        // ESCREVE AUTOMATICAMENTE DENTRO DOS CAMPOS DO FORMULÁRIO NA MESMA HORA
                         document.getElementById("provincia").value = provincia;
-                        document.getElementById("distrito").value = distrito.trim();
+                        document.getElementById("distrito").value = distrito;
                         document.getElementById("bairro").value = bairro;
                         
-                        // Sinaliza sucesso mudando o botão para verde
-                        document.getElementById("btnGps").innerText = "✅ Localização Preenchida!";
+                        document.getElementById("btnGps").innerText = "✅ Endereço Preenchido!";
                         document.getElementById("btnGps").style.backgroundColor = "#25D366";
-                        document.getElementById("btnGps").style.color = "#ffffff";
+                        document.getElementById("btnGps").style.color = "white";
                     })
                     .catch(err => {
-                        // Caso a API falhe mas o GPS tenha lido as coordenadas, avisa sem travar o app
-                        document.getElementById("btnGps").innerText = "📍 Localização Guardada!";
-                        document.getElementById("btnGps").style.backgroundColor = "#00509e";
-                        document.getElementById("btnGps").style.color = "#ffffff";
-                        alert("As coordenadas numéricas foram guardadas para o seu mapa! Por favor, digite os nomes da Província, Distrito e Bairro manualmente.");
+                        document.getElementById("btnGps").innerText = "✅ Coordenadas Guardadas por GPS!";
+                        document.getElementById("btnGps").style.backgroundColor = "#ffcc00";
+                        document.getElementById("btnGps").style.color = "#000a1f";
+                        alert("Coordenadas guardadas com sucesso! Por favor, digite apenas os nomes das zonas faltantes.");
                     });
 
                 }, function(error) {
-                    document.getElementById("btnGps").innerText = "❌ GPS Desativado";
+                    alert("Por favor, digite os dados da sua localização manualmente.");
+                    document.getElementById("btnGps").innerText = "❌ Digite a Localização Manualmente";
                     document.getElementById("btnGps").style.backgroundColor = "#ff4d4d";
-                    document.getElementById("btnGps").style.color = "#ffffff";
-                    alert("Por favor, ligue o GPS do seu dispositivo e autorize o navegador para permitir o preenchimento.");
-                }, { 
-                    enableHighAccuracy: true, 
-                    timeout: 10000, 
-                    maximumAge: 0 
+                    document.getElementById("btnGps").style.color = "white";
                 });
             } else {
-                alert("O seu navegador não possui suporte para leitura de GPS.");
+                alert("O seu navegador não suporta localização por GPS.");
             }
         }
 
@@ -542,11 +531,10 @@
             var problema = document.getElementById("problema").value;
 
             if(nome === "" || telefone === "" || provincia === "" || distrito === "" || bairro === "" || tipo === "" || problema === "") {
-                alert("Por favor, preencha todos os campos obrigatórios antes de enviar!");
+                alert("Por favor, preencha todos os campos obrigatórios!");
                 return;
             }
 
-            // Constrói a mensagem limpa e profissional com o link conversível estruturado
             var textoMensagem = "Olá Kilson Tech! Tenho um pedido do site.\n\n" +
                                 "*Nome:* " + nome + "\n" +
                                 "*Contacto:* " + telefone + "\n\n" +
@@ -556,7 +544,7 @@
                                 "• Bairro: " + bairro + "\n";
             
             if(coordenadas !== "") {
-                textoMensagem += "• Link do Google Maps: " + coordenadas + "\n";
+                textoMensagem += "• Mapa Google: " + coordenadas + "\n";
             }
             
             textoMensagem += "\n*Serviço:* " + tipo + "\n" +
@@ -565,6 +553,43 @@
             var link = "https://wa.me/258861685594?text=" + encodeURIComponent(textoMensagem);
             window.location.href = link;
         }
+
+        // Estrutura base de idiomas pronta para uso futuro
+        const traducoes = {
+            pt: {
+                subtitulo: "Energia e Soluções Elétricas Industriais",
+                "slogan-topo": "Com segurança, qualidade e eficiência.",
+                "label-nome": "O seu Nome:",
+                "placeholder-nome": "Ex: João Silva",
+                "btn-gps": "📍 Detetar Província, Distrito e Bairro por GPS",
+                "btn-enviar": "Enviar Cadastro por WhatsApp"
+            },
+            en: {
+                subtitulo: "Industrial Electrical and Mobile Solutions",
+                "slogan-topo": "With safety, quality, and efficiency.",
+                "label-nome": "Your Name:",
+                "placeholder-nome": "Ex: John Doe",
+                "btn-gps": "📍 Detect Province, District, and Neighborhood by GPS",
+                "btn-enviar": "Send Registration via WhatsApp"
+            }
+        };
+
+        function mudarIdioma() {
+            var idiomaDefinido = document.getElementById("seletorIdioma").value;
+            var elementos = document.querySelectorAll("[data-lang]");
+            
+            elementos.forEach(function(elemento) {
+                var chave = elemento.getAttribute("data-lang");
+                if (traducoes[idiomaDefinido] && traducoes[idiomaDefinido][chave]) {
+                    if (elemento.tagName === "INPUT" || elemento.tagName === "TEXTAREA") {
+                        elemento.placeholder = traducoes[idiomaDefinido][chave];
+                    } else {
+                        elemento.innerText = traducoes[idiomaDefinido][chave];
+                    }
+                }
+            });
+        }
     </script>
+
 </body>
 </html>
